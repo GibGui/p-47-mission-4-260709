@@ -28,10 +28,10 @@ public class WiseSayingService {
 
 
         if (keywordType.equals("content")) {
-            return wiseSayingRepository.findByContentContaining(keyword);
+            return wiseSayingRepository.findByContentContainingDesc(keyword);
 
         } else {
-            return wiseSayingRepository.findByAuthorContaining(keyword);
+            return wiseSayingRepository.findByAuthorContainingDesc(keyword);
 
         }
 

@@ -26,17 +26,23 @@ public class WiseSayingRepository {
 
     }
 
-    public List<WiseSaying> findByContentContaining(String keyword){
+    public List<WiseSaying> findByContentContainingDesc(String keyword){
 
-        return wiseSayings.stream()
+        return wiseSayings
+                .reversed()
+                .stream()
                 .filter( wiseSaying -> wiseSaying.getContent().contains(keyword))
+                .limit(5)
                 .toList();
 
     }
-    public List<WiseSaying> findByAuthorContaining(String keyword){
+    public List<WiseSaying> findByAuthorContainingDesc(String keyword){
 
-        return wiseSayings.stream()
+        return wiseSayings
+                .reversed()
+                .stream()
                 .filter( wiseSaying -> wiseSaying.getAuthor().contains(keyword))
+                .limit(5)
                 .toList();
 
     }

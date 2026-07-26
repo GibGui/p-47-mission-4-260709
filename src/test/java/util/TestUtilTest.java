@@ -1,3 +1,5 @@
+package util;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TestUtilTest {
 
     @Test
-    @DisplayName("TestUtil.genScanner()")
+    @DisplayName("util.TestUtil.genScanner()")
     void t1() {
 
         Scanner sc = TestUtil.genScanner("""
@@ -31,7 +33,7 @@ public class TestUtilTest {
     }
 
     @Test
-    @DisplayName("TestUtil.setOutToByteArray()")
+    @DisplayName("util.TestUtil.setOutToByteArray()")
     void t2() throws IOException {
 
         ByteArrayOutputStream outputStream = TestUtil.setOutToByteArray(); // 모니터 => 배열

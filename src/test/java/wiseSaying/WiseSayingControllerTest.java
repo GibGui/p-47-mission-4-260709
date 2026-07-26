@@ -1,5 +1,11 @@
+package wiseSaying;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -276,6 +282,38 @@ public class WiseSayingControllerTest {
                 .doesNotContain("1 / 작자미상 / 현재를 사랑하라.")
                 .doesNotContain("2 / 작자미상 / 과거에 집착하지 마라.");
     }
+    @Test
+    @DisplayName("목록: 한 페이지에 최신 명언 5개 출력")
+    void t15() throws IOException {
+
+        String input = IntStream.rangeClosed(1, 10)
+                .mapToObj(num -> """
+                        등록
+                        명언 %d
+                        작가 %d
+                        """.formatted(num, num))
+                .collect(Collectors.joining("\n"));
+
+        input += "목록\n";
+
+        String out = AppTestRunner.run(input);
+
+        System.out.println(out);
+        assertThat(out)
+                .contains("10 / 작가 10 / 명언 10")
+                .contains("9 / 작가 9 / 명언 9")
+                .contains("8 / 작가 8 / 명언 8")
+                .contains("7 / 작가 7 / 명언 7")
+                .contains("6 / 작가 6 / 명언 6")
+                .doesNotContain("5 / 작가 5 / 명언 5")
+                .doesNotContain("4 / 작가 4 / 명언 4")
+                .doesNotContain("3 / 작가 3 / 명언 3")
+                .doesNotContain("2 / 작가 2 / 명언 2")
+                .doesNotContain("1 / 작가 1 / 명언 1");
+
+
+    }
+    
 
 
 
