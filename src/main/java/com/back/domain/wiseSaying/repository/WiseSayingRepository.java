@@ -26,22 +26,24 @@ public class WiseSayingRepository {
 
     }
 
-    public List<WiseSaying> findByContentContainingDesc(String keyword, int pageSize){
+    public List<WiseSaying> findByContentContainingDesc(String keyword, int pageSize, int page){
 
         return wiseSayings
                 .reversed()
                 .stream()
                 .filter( wiseSaying -> wiseSaying.getContent().contains(keyword))
+                .skip((page -1) * pageSize)
                 .limit(pageSize)
                 .toList();
 
     }
-    public List<WiseSaying> findByAuthorContainingDesc(String keyword, int pageSize){
+    public List<WiseSaying> findByAuthorContainingDesc(String keyword, int pageSize, int page){
 
         return wiseSayings
                 .reversed()
                 .stream()
                 .filter( wiseSaying -> wiseSaying.getAuthor().contains(keyword))
+                .skip((page -1) * pageSize)
                 .limit(pageSize)
                 .toList();
 
