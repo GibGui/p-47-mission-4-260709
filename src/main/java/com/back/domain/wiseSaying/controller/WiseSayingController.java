@@ -38,8 +38,9 @@ public class WiseSayingController {
         System.out.println("번호 / 작가 / 명언");
         System.out.println("-------------------");
 
+        int pageSize = rq.getParamAsInt("pageSize", 5);
 
-        List<WiseSaying> wiseSayings = wiseSayingService.findListDesc(keywordType, keyword);
+        List<WiseSaying> wiseSayings = wiseSayingService.findListDesc( keywordType, keyword ,pageSize);
 
         wiseSayings
                 .stream()

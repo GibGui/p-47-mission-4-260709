@@ -24,14 +24,14 @@ public class WiseSayingService {
 
     }
 
-    public List<WiseSaying> findListDesc(String keywordType, String keyword) {
+    public List<WiseSaying> findListDesc(String keywordType, String keyword, int pageSize) {
 
 
         if (keywordType.equals("content")) {
-            return wiseSayingRepository.findByContentContainingDesc(keyword);
+            return wiseSayingRepository.findByContentContainingDesc(keyword, pageSize);
 
         } else {
-            return wiseSayingRepository.findByAuthorContainingDesc(keyword);
+            return wiseSayingRepository.findByAuthorContainingDesc(keyword, pageSize);
 
         }
 
