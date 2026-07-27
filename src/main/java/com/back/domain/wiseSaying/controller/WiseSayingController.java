@@ -8,6 +8,8 @@ import com.back.global.Rq;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class WiseSayingController {
 
@@ -49,6 +51,16 @@ public class WiseSayingController {
                 .stream()
                 .forEach(wiseSaying -> System.out.printf("%d / %s / %s%n", wiseSaying.getId()
                 , wiseSaying.getAuthor(), wiseSaying.getContent()));
+
+        System.out.println("----------------------");
+        int totalPageCnt = pageDto.getTotalPageCnt();
+        int currentPageNo = pageDto.getPage();
+
+        String pageMenu = IntStream.rangeClosed(1, totalPageCnt)
+                .mapToObj(i -> i == currentPageNo ? "[%d]".formatted(i) : String.valueOf(i))
+                .collect(Collectors.joining(" / "));
+
+        System.out.println("페이지 : " + pageMenu);
 
     }
     public void actionDelete(Rq rq){

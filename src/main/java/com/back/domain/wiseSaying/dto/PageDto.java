@@ -15,4 +15,15 @@ public class PageDto {
     private int totalItem; // 전체 명언 갯수
     private List<WiseSaying> content; // 한 페이지를 담은 리스트
 
+    public int getTotalPageCnt() {
+        if(totalItem == 0) {
+            return 0;
+        }
+        return (int) Math.ceil((double) totalItem / pageSize);
+
+    }
 }
+
+
+
+
