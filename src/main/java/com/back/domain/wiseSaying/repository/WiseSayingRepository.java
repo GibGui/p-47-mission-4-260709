@@ -1,5 +1,6 @@
 package com.back.domain.wiseSaying.repository;
 
+import com.back.domain.wiseSaying.dto.PageDto;
 import com.back.domain.wiseSaying.entity.WiseSaying;
 
 import java.util.ArrayList;
@@ -26,38 +27,55 @@ public class WiseSayingRepository {
 
     }
 
-    public List<WiseSaying> findByContentContainingDesc(String keyword, int pageSize, int page){
+    public PageDto findByAuthorContainingDesc(String keyword, int pageSize, int page){
 
-        return wiseSayings
+        List<WiseSaying> filtered =  wiseSayings
                 .reversed()
                 .stream()
-                .filter( wiseSaying -> wiseSaying.getContent().contains(keyword))
-                .skip((page -1) * pageSize)
+                .filter(wiseSaying -> wiseSaying.getAuthor().contains(keyword))
+                .toList();
+
+
+
+        return pageOf(filtered, page,pageSize);
+    }
+
+    public PageDto findByContentContainingDesc(String keyword, int pageSize, int page){
+
+        List<WiseSaying> filtered = wiseSayings
+                .reversed()
+                .stream()
+                .filter(wiseSaying -> wiseSaying.getContent().contains(keyword))
+                .toList();
+
+        return pageOf(filtered, page, pageSize);
+
+    }
+
+    public PageDto pageOf(List<WiseSaying> filteredContent, int pageNo, int pageSize){
+
+        List<WiseSaying> content = filteredContent
+                .stream()
+                .skip((pageNo-1) * pageSize)
                 .limit(pageSize)
                 .toList();
 
-    }
-    public List<WiseSaying> findByAuthorContainingDesc(String keyword, int pageSize, int page){
+        int totalItems = filteredContent.size();
 
-        return wiseSayings
-                .reversed()
-                .stream()
-                .filter( wiseSaying -> wiseSaying.getAuthor().contains(keyword))
-                .skip((page -1) * pageSize)
-                .limit(pageSize)
-                .toList();
-
+        return new PageDto(pageNo, pageSize, totalItems, content);
     }
+
+
 
 
     public boolean delete(int id) {
-        return wiseSayings.removeIf( w -> w.getId() == id);
+        return wiseSayings.removeIf(w -> w.getId() == id);
     }
 
     public WiseSaying findByIdOrNull(int id) {
 
         return wiseSayings.stream()
-                .filter( w-> w.getId() == id)
+                .filter(w -> w.getId() == id)
                 .findFirst()
                 .orElse(null);
 
